@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Organisasi Rohani Islam</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c8a4a;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #2c8a4a;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #247a3d;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .error-message {
+            display: none;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo img {
+            max-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- Ganti dengan logo organisasi Anda -->
+            <img src="logo_rohis.jpg">
+        </div>
+        
+        <h1>Pendaftaran Organisasi Rohani Islam</h1>
+        
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" name="nama" required placeholder="Masukkan nama lengkap">
+            </div>
+            
+            <div class="form-group">
+                <label for="kelas">Kelas</label>
+                <input type="text" id="kelas" name="kelas" required placeholder="Contoh: XE1">
+            </div>
+            
+            <div class="form-group">
+                <label for="hp">Nomor HP/WhatsApp</label>
+                <input type="tel" id="hp" name="hp" required placeholder="Contoh: 081234567890">
+            </div>
+            
+            <button type="submit">Daftar Sekarang</button>
+        </form>
+        
+        <div id="successMessage" class="success-message">
+            Pendaftaran berhasil! Terima kasih telah mendaftar di Organisasi Rohani Islam.
+        </div>
+        
+        <div id="errorMessage" class="error-message">
+            Terjadi kesalahan saat mengirim pendaftaran. Silakan coba lagi.
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Ambil nilai dari form
+            const nama = document.getElementById('nama').value;
+            const kelas = document.getElementById('kelas').value;
+            const hp = document.getElementById('hp').value;
+            
+            // Ganti URL_WEBHOOK_DISCORD dengan webhook Discord Anda
+            const webhookUrl = 'https://discord.com/api/webhooks/1396064802136395866/K5l1ukkOYqg8RkJbgoV1WuWWQGGiKeHMA1UmWvKuJC-39TtnUtOFrnOQQktHYJlwKs8m';
+            
+            // Data yang akan dikirim ke Discord
+            const data = {
+                content: `**Pendaftaran Baru Organisasi Rohani Islam**\n\n**Nama:** ${nama}\n**Kelas:** ${kelas}\n**No HP:** ${hp}\n\nTerima kasih!`,
+                username: 'Bot Pendaftaran ORI',
+                avatar_url: 'https://via.placeholder.com/100x100?text=ORI'
+            };
+            
+            // Kirim data ke Discord webhook
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Tampilkan pesan sukses
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('errorMessage').style.display = 'none';
+                    
+                    // Reset form
+                    document.getElementById('registrationForm').reset();
+                } else {
+                    throw new Error('Gagal mengirim data');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('successMessage').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
