@@ -1,1 +1,344 @@
-Sedang dalam Perbaikan 🙏
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran Lomba Maulid - SMA Negeri 11 Mataram</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .success-message, .error-message {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .success-message.show, .error-message.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #2c8a4a 0%, #1e6e34 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #1e6e34 0%, #2c8a4a 100%);
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #2c8a4a 0%, #1e6e34 100%);
+        }
+        
+        .hidden-field {
+            display: none;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2c8a4a 0%, #1e6e34 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Header dengan Logo -->
+    <header class="py-6 bg-white shadow-md">
+        <div class="container mx-auto px-4 flex flex-col items-center">
+            <img src="logosekolah.png"
+            alt="logo">
+            <h1 class="text-xl font-bold mt-4 text-green-700">SMA Negeri 11 Mataram</h1>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="card bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+            <h1 class="text-2xl font-bold text-center text-gray-800 mb-2">Form Pendaftaran Lomba Maulid</h1>
+            <h2 class="text-lg text-center text-gray-600 mb-6">SMA Negeri 11 Mataram</h2>
+            
+            <form id="registrationForm" class="space-y-5">
+                <!-- Nama Lengkap (default: tampil) -->
+                <div id="namaField">
+                    <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" id="nama" name="nama" 
+                            class="pl-10 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            placeholder="Masukkan nama lengkap">
+                    </div>
+                </div>
+
+                <!-- Kelas -->
+                <div>
+                    <label for="kelas" id="kelasLabel" class="block text-sm font-medium text-gray-700 mb-1">Kelas</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-graduation-cap text-gray-400"></i>
+                        </div>
+                        <input type="text" id="kelas" name="kelas" required 
+                            class="pl-10 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            placeholder="Contoh: X IPA 1 atau X IPA">
+                    </div>
+                </div>
+
+                <!-- Field untuk Anggota Kelompok (awalnya tersembunyi) -->
+                <div id="anggotaFields" class="hidden-field space-y-3 fade-in">
+                    <h3 class="text-md font-medium text-gray-700 mb-1">Anggota Kelompok</h3>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" id="anggota1" name="anggota1" 
+                            class="pl-10 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            placeholder="Nama Anggota 1">
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" id="anggota2" name="anggota2" 
+                            class="pl-10 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            placeholder="Nama Anggota 2">
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" id="anggota3" name="anggota3" 
+                            class="pl-10 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            placeholder="Nama Anggota 3">
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" id="anggota4" name="anggota4" 
+                            class="pl-10 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            placeholder="Nama Anggota 4">
+                    </div>
+                </div>
+
+                <!-- Cabang Lomba -->
+                <div>
+                    <label for="cabang_lomba" class="block text-sm font-medium text-gray-700 mb-1">Cabang Lomba</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-trophy text-gray-400"></i>
+                        </div>
+                        <select id="cabang_lomba" name="cabang_lomba" required 
+                            class="pl-10 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                            <option value="">Pilih Cabang Lomba</option>
+                            <option value="Sholawat">Sholawat (1 Kelas)</option>
+                            <option value="Ceramah">Ceramah (Perorangan)</option>
+                            <option value="Tanya Jawab Berantai">Tanya Jawab Berantai (Per Kelompok, 4 Orang)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tombol Submit -->
+                <div>
+                    <button type="submit" class="btn-submit w-full py-3 px-4 rounded-lg shadow-md text-white font-semibold">
+                        <i class="fas fa-paper-plane mr-2"></i> Daftar
+                    </button>
+                </div>
+            </form>
+
+            <!-- Status Message -->
+            <div id="successMessage" class="success-message mt-6 p-4 rounded-lg text-center bg-green-100 text-green-700 border border-green-200">
+                <i class="fas fa-check-circle mr-2"></i> Pendaftaran berhasil dikirim! Terima kasih telah mendaftar.
+            </div>
+
+            <div id="errorMessage" class="error-message mt-6 p-4 rounded-lg text-center bg-red-100 text-red-700 border border-red-200">
+                <i class="fas fa-exclamation-circle mr-2"></i> Terjadi kesalahan saat mengirim pendaftaran. Silakan coba lagi.
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-4 text-white text-center mt-8">
+        <div class="container mx-auto px-4">
+            © ROHIS SMA Negeri 11 Mataram
+        </div>
+    </footer>
+
+    <script>
+        const webhookURL = "https://discord.com/api/webhooks/1396064802136395866/K5l1ukkOYqg8RkJbgoV1WuWWQGGiKeHMA1UmWvKuJC-39TtnUtOFrnOQQktHYJlwKs8m";
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registrationForm');
+            const cabangLombaSelect = document.getElementById('cabang_lomba');
+            const namaField = document.getElementById('namaField');
+            const kelasInput = document.getElementById('kelas');
+            const kelasLabel = document.getElementById('kelasLabel');
+            const anggotaFields = document.getElementById('anggotaFields');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const namaInput = document.getElementById('nama');
+            
+            // Fungsi untuk menangani perubahan pilihan cabang lomba
+            function handleCabangLombaChange() {
+                const selectedValue = cabangLombaSelect.value;
+                
+                // Reset semua field ke default
+                namaField.classList.remove('hidden-field');
+                namaInput.removeAttribute('disabled');
+                kelasLabel.textContent = 'Kelas';
+                kelasInput.placeholder = 'Contoh: X IPA 1 atau X IPA';
+                anggotaFields.classList.add('hidden-field');
+                
+                // Atur field berdasarkan pilihan
+                if (selectedValue === 'Sholawat') {
+                    namaField.classList.add('hidden-field');
+                    kelasLabel.textContent = 'Kelas (Seluruh Kelas)';
+                    kelasInput.placeholder = 'Contoh: X IPA ';
+                } else if (selectedValue === 'Tanya Jawab Berantai') {
+                    namaField.classList.add('hidden-field');
+                    anggotaFields.classList.remove('hidden-field');
+                    anggotaFields.classList.add('fade-in');
+                }
+            }
+            
+            // Event listener untuk perubahan pilihan cabang lomba
+            cabangLombaSelect.addEventListener('change', handleCabangLombaChange);
+            
+            // Validasi form sebelum dikirim
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const selectedLomba = cabangLombaSelect.value;
+                let formData = {
+                    cabang_lomba: selectedLomba,
+                    kelas: kelasInput.value,
+                    timestamp: new Date().toLocaleString('id-ID')
+                };
+                
+                // Validasi berdasarkan jenis lomba
+                if (selectedLomba === 'Ceramah') {
+                    formData.nama = namaInput.value;
+                    
+                    if (!formData.nama) {
+                        showStatus('Nama lengkap harus diisi untuk lomba Ceramah', 'error');
+                        return;
+                    }
+                } else if (selectedLomba === 'Tanya Jawab Berantai') {
+                    formData.anggota1 = document.getElementById('anggota1').value;
+                    formData.anggota2 = document.getElementById('anggota2').value;
+                    formData.anggota3 = document.getElementById('anggota3').value;
+                    formData.anggota4 = document.getElementById('anggota4').value;
+                    
+                    if (!formData.anggota1 || !formData.anggota2 || !formData.anggota3 || !formData.anggota4) {
+                        showStatus('Semua nama anggota harus diisi untuk lomba Tanya Jawab Berantai', 'error');
+                        return;
+                    }
+                }
+                
+                if (!formData.kelas) {
+                    showStatus('Kelas harus diisi', 'error');
+                    return;
+                }
+                
+                // Format pesan untuk Discord
+                let discordMessage = `**Pendaftaran Lomba Maulid Baru**\n\n`;
+                
+                if (selectedLomba === 'Ceramah') {
+                    discordMessage += `**Nama:** ${formData.nama}\n`;
+                    discordMessage += `**Kelas:** ${formData.kelas}\n`;
+                } else if (selectedLomba === 'Sholawat') {
+                    discordMessage += `**Kelas:** ${formData.kelas}\n`;
+                } else if (selectedLomba === 'Tanya Jawab Berantai') {
+                    discordMessage += `**Kelas:** ${formData.kelas}\n`;
+                    discordMessage += `**Anggota 1:** ${formData.anggota1}\n`;
+                    discordMessage += `**Anggota 2:** ${formData.anggota2}\n`;
+                    discordMessage += `**Anggota 3:** ${formData.anggota3}\n`;
+                    discordMessage += `**Anggota 4:** ${formData.anggota4}\n`;
+                }
+                
+                discordMessage += `**Cabang Lomba:** ${formData.cabang_lomba}\n`;
+                discordMessage += `**Waktu Pendaftaran:** ${formData.timestamp}`;
+                
+                // Kirim data ke Discord
+                try {
+                    const response = await fetch(webhookURL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            content: discordMessage,
+                            username: 'Bot Pendaftaran Lomba Maulid',
+                            avatar_url: 'https://cdn-icons-png.flaticon.com/512/2913/2913440.png'
+                        }),
+                    });
+                    
+                    if (response.ok) {
+                        showStatus('Pendaftaran berhasil dikirim!', 'success');
+                        form.reset();
+                        // Reset tampilan form ke default
+                        handleCabangLombaChange();
+                    } else {
+                        showStatus('Terjadi kesalahan saat mengirim data. Silakan coba lagi.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showStatus('Terjadi kesalahan jaringan. Silakan coba lagi.', 'error');
+                }
+            });
+            
+            function showStatus(message, type) {
+                if (type === 'success') {
+                    successMessage.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${message}`;
+                    successMessage.classList.add('show');
+                    errorMessage.classList.remove('show');
+                    setTimeout(() => successMessage.classList.remove('show'), 5000);
+                } else {
+                    errorMessage.innerHTML = `<i class="fas fa-exclamation-circle mr-2"></i> ${message}`;
+                    errorMessage.classList.add('show');
+                    successMessage.classList.remove('show');
+                    setTimeout(() => errorMessage.classList.remove('show'), 5000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
